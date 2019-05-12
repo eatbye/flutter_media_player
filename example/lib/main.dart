@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_media_player/flutter_media_player.dart';
 
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -55,7 +56,15 @@ class _MyAppState extends State<MyApp> {
               var result = await FlutterMediaPlayer.play('http://www.abstractpath.com/files/audiosamples/sample.mp3');
               print(result);
             },
-            child: Text('play'),
+            child: Text('播放网上'),
+          ),
+          FlatButton(
+            onPressed: () async {
+
+              var result = await FlutterMediaPlayer.play('assets/audio.mp3');
+              print(result);
+            },
+            child: Text('播放本地'),
           ),
           FlatButton(
             onPressed: () async {
@@ -70,6 +79,13 @@ class _MyAppState extends State<MyApp> {
               print(result);
             },
             child: Text('resume'),
+          ),
+          FlatButton(
+            onPressed: () async {
+              var result = await FlutterMediaPlayer.stop();
+              print(result);
+            },
+            child: Text('stop'),
           ),
           FlatButton(
             onPressed: () async {

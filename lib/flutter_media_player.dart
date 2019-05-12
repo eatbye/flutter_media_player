@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 
@@ -17,13 +18,17 @@ class FlutterMediaPlayer {
 
   }
 
-  static Future<bool> play(url) async {
+  static Future<String> play(String url) async {
+    var isLocal = url.indexOf("://")==-1;
+
     final Map<String, dynamic> params = <String, dynamic>{
       'url': url,
+      'isLocal': isLocal,
     };
 
     var res = await _channel.invokeMethod('play', params);
-    return res;
+    print(res);
+    return 'res';
   }
 
   static Future<bool> pause() async {
@@ -33,6 +38,11 @@ class FlutterMediaPlayer {
 
   static Future<bool> resume() async {
     var res = await _channel.invokeMethod('resume');
+    return res;
+  }
+
+  static Future<bool> stop() async {
+    var res = await _channel.invokeMethod('stop');
     return res;
   }
 
