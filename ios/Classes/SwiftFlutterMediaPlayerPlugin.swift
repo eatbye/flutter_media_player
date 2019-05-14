@@ -1,6 +1,7 @@
 import Flutter
 import UIKit
 import StreamingKit
+import AVFoundation
 
 public class SwiftFlutterMediaPlayerPlugin: NSObject, FlutterPlugin {
     let audioPlayer = STKAudioPlayer();
@@ -25,6 +26,13 @@ public class SwiftFlutterMediaPlayerPlugin: NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "prepare":
+//            UIApplication.shared.beginReceivingRemoteControlEvents()
+//            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVAudioSessionRouteChange, object: nil)
+//            NotificationCenter.default.addObserver(self,
+//                                                   selector: #selector(self.audioSessionRouteChanged),
+//                                                   name: NSNotification.Name.AVAudioSessionRouteChange,
+//                                                   object: AVAudioSession.sharedInstance())
+            prepare()
             return result(true)
         case "play":
             let args = (call.arguments as! NSDictionary)
@@ -67,6 +75,57 @@ public class SwiftFlutterMediaPlayerPlugin: NSObject, FlutterPlugin {
             return result(false);
         }
     }
+    
+    func prepare(){
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: []);
+            try AVAudioSession.sharedInstance().setActive(true);
+            //self.channel.invokeMethod("audio.play", arguments: nil);
+        } catch let error {
+            print(error);
+            //self.channel.invokeMethod("error", arguments: error.localizedDescription);
+            //return result(false);
+        }
+    }
+    /*
+    @objc func audioSessionRouteChanged(_ notification: Notification) {
+        let reasonObj = (notification as NSNotification).userInfo![AVAudioSessionRouteChangeReasonKey] as! NSNumber
+        if let reason = AVAudioSession.RouteChangeReason(rawValue: reasonObj.uintValue) {
+            switch reason {
+            case .newDeviceAvailable:
+                print("1")
+                
+                break
+            case .oldDeviceUnavailable:
+                //self.pauseAction()
+                break
+            default:
+                break
+            }
+        }
+    }
+    
+    // MARK: - 音乐播放控制
+    override func remoteControlReceived(with event: UIEvent?) {
+        print("音乐播放控制")
+        if event?.type == .remoteControl {
+            switch event!.subtype {
+            case .remoteControlPlay :
+                playAction()
+            case .remoteControlPause :
+                pauseAction()
+            case .remoteControlNextTrack :
+                nextAction()
+            case .remoteControlPreviousTrack:
+                previousAction()
+            case .remoteControlTogglePlayPause:
+                playAction()
+            default:
+                break
+            }
+        }
+    }
+    */
 }
 
 
