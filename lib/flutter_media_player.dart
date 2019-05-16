@@ -56,6 +56,20 @@ class FlutterMediaPlayer {
     return res;
   }
 
+  static Future<double> getVolume() async {
+    var res = await _channel.invokeMethod('getVolume');
+    return res;
+  }
+
+  static Future<double> setVolume(volume) async {
+    final Map<String, dynamic> params = <String, dynamic>{
+      'volume': volume,
+    };
+
+    var res = await _channel.invokeMethod('setVolume', params);
+    return res;
+  }
+
   static Future<bool> seek(time) async {
     final Map<String, dynamic> params = <String, dynamic>{
       'time': time,

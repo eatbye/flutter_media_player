@@ -100,7 +100,23 @@ class _MyAppState extends State<MyApp> {
               print(result);
             },
             child: Text('state'),
-          )
+          ),
+
+          FlatButton(
+            onPressed: () async {
+              var result = await FlutterMediaPlayer.getVolume();
+              print(result);
+            },
+            child: Text('getVolume'),
+          ),
+
+          FlatButton(
+            onPressed: () async {
+              var result = await FlutterMediaPlayer.setVolume(0.5);
+              print(result);
+            },
+            child: Text('setVolume'),
+          ),
 
 
         ],)
