@@ -60,12 +60,8 @@ public class SwiftFlutterMediaPlayerPlugin: NSObject, FlutterPlugin {
         case "duration":
             return result(audioPlayer.duration)
         case "getVolume":
-            return result(audioPlayer.volume)
-        case "setVolume":
-            let args = (call.arguments as! NSDictionary)
-            let volume = args.object(forKey: "volume") as! Float
-            audioPlayer.volume = volume
-            return result(audioPlayer.volume)
+            let vol = AVAudioSession.sharedInstance().outputVolume
+            return result(vol)
         case "seek":
             let args = (call.arguments as! NSDictionary)
             let time = args.object(forKey: "time") as! Double
