@@ -26,13 +26,10 @@ public class SwiftFlutterMediaPlayerPlugin: NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "prepare":
-//            UIApplication.shared.beginReceivingRemoteControlEvents()
-//            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVAudioSessionRouteChange, object: nil)
-//            NotificationCenter.default.addObserver(self,
-//                                                   selector: #selector(self.audioSessionRouteChanged),
-//                                                   name: NSNotification.Name.AVAudioSessionRouteChange,
-//                                                   object: AVAudioSession.sharedInstance())
             prepare()
+            return result(true)
+        case "receivingRemoteControlEvents":
+            receivingRemoteControlEvents()
             return result(true)
         case "play":
             let args = (call.arguments as! NSDictionary)
@@ -83,7 +80,12 @@ public class SwiftFlutterMediaPlayerPlugin: NSObject, FlutterPlugin {
         }
     }
     
+    func receivingRemoteControlEvents(){
+        UIApplication.shared.beginReceivingRemoteControlEvents()
+    }
+    
     func prepare(){
+        //beginReceivingRemoteControlEvents
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: []);
             try AVAudioSession.sharedInstance().setActive(true);

@@ -18,6 +18,12 @@ class FlutterMediaPlayer {
 
   }
 
+  static Future<bool> receivingRemoteControlEvents() async {
+    var res = await _channel.invokeMethod('receivingRemoteControlEvents');
+    return res;
+
+  }
+
   static Future<String> play(String url) async {
     var isLocal = url.indexOf("://")==-1;
 
