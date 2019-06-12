@@ -27,6 +27,9 @@ class FlutterMediaPlayer {
   static Future<String> play(String url) async {
     var isLocal = url.indexOf("://")==-1;
 
+    print(isLocal);
+    print('00000000000000');
+
     final Map<String, dynamic> params = <String, dynamic>{
       'url': url,
       'isLocal': isLocal,
