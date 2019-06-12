@@ -2,10 +2,8 @@ PODS:
   - Flutter (1.0.0)
   - flutter_media_player (0.0.1):
     - Flutter
-    - FreeStreamer
-  - FreeStreamer (3.9.3):
-    - Reachability (~> 3.0)
-  - Reachability (3.2)
+    - StreamingKit
+  - StreamingKit (0.1.30)
 
 DEPENDENCIES:
   - Flutter (from `.symlinks/flutter/ios`)
@@ -13,8 +11,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - FreeStreamer
-    - Reachability
+    - StreamingKit
 
 EXTERNAL SOURCES:
   Flutter:
@@ -24,9 +21,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
-  flutter_media_player: c85c97ecd2330ae7fe20ae5dfbcf61b590542b58
-  FreeStreamer: 8d52b299dc97e557ff156480bf86a666165bd1e5
-  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  flutter_media_player: e145758c57189e0b2a7e386ec2ddf6399c13f193
+  StreamingKit: 70ca8608c206864b4d54a577eacb3c8bf7c72209
 
 PODFILE CHECKSUM: 1c3158cf7a465ed0ba19c2bc9cec00c2cb3395a1
 

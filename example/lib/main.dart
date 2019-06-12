@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
           Text('Running on: $_platformVersion\n'),
           FlatButton(
             onPressed: () async {
-              var result = await FlutterMediaPlayer.play('http://newconceptmp3.wordbye.com/1/en/E001.mp3');
+              var result = await FlutterMediaPlayer.play('http://www.abstractpath.com/files/audiosamples/sample.mp3');
               print(result);
             },
             child: Text('播放网上'),
@@ -92,28 +92,14 @@ class _MyAppState extends State<MyApp> {
               var result = await FlutterMediaPlayer.duration();
               print(result);
             },
-            child: Text('duration 长度秒数'),
-          ),
-          FlatButton(
-            onPressed: () async {
-              var result = await FlutterMediaPlayer.progress();
-              print(result);
-            },
-            child: Text('progress 播放秒数'),
-          ),
-          FlatButton(
-            onPressed: () async {
-              var result = await FlutterMediaPlayer.seek(10.0);
-              print(result);
-            },
-            child: Text('播放到10秒'),
+            child: Text('duration'),
           ),
           FlatButton(
             onPressed: () async {
               var result = await FlutterMediaPlayer.state();
               print(result);
             },
-            child: Text('state 状态'),
+            child: Text('state'),
           ),
 
           FlatButton(
@@ -123,7 +109,6 @@ class _MyAppState extends State<MyApp> {
             },
             child: Text('getVolume'),
           ),
-
 
 
 

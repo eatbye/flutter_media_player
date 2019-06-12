@@ -1,16 +1,14 @@
 import Flutter
 import UIKit
-//import StreamingKit
-import FreeStreamer
+import StreamingKit
 import AVFoundation
 
 public class SwiftFlutterMediaPlayerPlugin: NSObject, FlutterPlugin {
-    let audioPlayer = FSAudioStream();
+    let audioPlayer = STKAudioPlayer();
     
     var registrar: FlutterPluginRegistrar;
     var currentRate: Double = 0.0;
     var channel: FlutterMethodChannel;
-    var state = -1;
     
     init(pluginRegistrar: FlutterPluginRegistrar, pluginChannel: FlutterMethodChannel) {
         registrar = pluginRegistrar;
@@ -37,69 +35,42 @@ public class SwiftFlutterMediaPlayerPlugin: NSObject, FlutterPlugin {
             let args = (call.arguments as! NSDictionary)
             let urlString = args.object(forKey: "url") as! String
             let isLocal = args.object(forKey: "isLocal") as! Bool
-            print(isLocal);
-            print("-=-----")
             if(isLocal){
                 let asset = self.registrar.lookupKey(forAsset: urlString);
                 let path = Bundle.main.path(forAuxiliaryExecutable: asset);
                 let url = URL(fileURLWithPath: path!)
                 
-                audioPlayer.play(from: url)
+                audioPlayer.play(url)
             }else{
-                let url = URL(string: urlString)
-                print(url)
-                audioPlayer.play(from: url)
+                audioPlayer.play(urlString)
             }
-            audioPlayer.onStateChange = self._streamStateChangeHandler()
             
             return result(urlString)
         case "pause":
-            audioPlayer.pause()
-            return result(true)
+            audioPlayer.pause();
+            return result(true);
         case "resume":
-            //audioPlayer.resume();
-            audioPlayer.pause()
-            return result(true)
+            audioPlayer.resume();
+            return result(true);
         case "stop":
             audioPlayer.stop();
             return result(true);
         case "progress":
-            //return result(audioPlayer.progress)
-            //let position = audioPlayer.currentTimePlayed
-            //let duration = position.playbackTimeInSeconds / position.position
-            //return result(duration)
-            let position = audioPlayer.currentTimePlayed
-            return result(position.playbackTimeInSeconds)
+            return result(audioPlayer.progress)
         case "duration":
-            //let position = audioPlayer.currentTimePlayed
-    
-            //let duration = position.playbackTimeInSeconds / position.position
-            //let position = audioPlayer.currentTimePlayed
-            //return result(position.position)
-            //return result(position.playbackTimeInSeconds);
-            
-            let position = audioPlayer.currentTimePlayed
-            let duration = position.playbackTimeInSeconds / position.position
-            return result(duration)
+            return result(audioPlayer.duration)
         case "getVolume":
             let vol = AVAudioSession.sharedInstance().outputVolume
             return result(vol)
         case "seek":
             let args = (call.arguments as! NSDictionary)
-            let time = args.object(forKey: "time") as! Float
-            //audioPlayer.seek(toTime: time)
-            let positionAll = audioPlayer.currentTimePlayed
-            let duration = positionAll.playbackTimeInSeconds / positionAll.position
-            
-            var position = FSStreamPosition()
-            position.position = time / duration
-            audioPlayer.seek(to: position)
+            let time = args.object(forKey: "time") as! Double
+            audioPlayer.seek(toTime: time)
             return result(true)
         case "getPlatformVersion":
             return result("iOS " + UIDevice.current.systemVersion)
         case "state":
-            //return result(audioPlayer.state.rawValue)
-            return result(state);
+            return result(audioPlayer.state.rawValue)
         default:
             return result(false);
         }
@@ -119,23 +90,6 @@ public class SwiftFlutterMediaPlayerPlugin: NSObject, FlutterPlugin {
             print(error);
             //self.channel.invokeMethod("error", arguments: error.localizedDescription);
             //return result(false);
-        }
-    }
-    
-    private func _streamStateChangeHandler() -> (FSAudioStreamState) -> Void {
-        return { state1 in
-//            if state.rawValue == FSAudioStreamState.fsAudioStreamPlaybackCompleted.rawValue {
-                //self.nextAction()
-//            }
-            print(state1.rawValue);
-            self.state = state1.rawValue;
-            /*
-             if state.rawValue == FSAudioStreamState.fsAudioStreamPlaying.rawValue{
-             print("-------------")
-             
-             self.setInfoCenterCredentials()
-             }
-             */
         }
     }
     /*
