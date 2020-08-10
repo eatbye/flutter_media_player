@@ -6,24 +6,24 @@ PODS:
   - StreamingKit (0.1.30)
 
 DEPENDENCIES:
-  - Flutter (from `.symlinks/flutter/ios`)
+  - Flutter (from `Flutter`)
   - flutter_media_player (from `.symlinks/plugins/flutter_media_player/ios`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - StreamingKit
 
 EXTERNAL SOURCES:
   Flutter:
-    :path: ".symlinks/flutter/ios"
+    :path: Flutter
   flutter_media_player:
     :path: ".symlinks/plugins/flutter_media_player/ios"
 
 SPEC CHECKSUMS:
-  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
-  flutter_media_player: e145758c57189e0b2a7e386ec2ddf6399c13f193
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_media_player: 33cb4c1e7327bd81716a6eee62d40922c0ffbee8
   StreamingKit: 70ca8608c206864b4d54a577eacb3c8bf7c72209
 
-PODFILE CHECKSUM: 1c3158cf7a465ed0ba19c2bc9cec00c2cb3395a1
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.9.0
